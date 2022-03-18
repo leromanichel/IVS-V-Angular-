@@ -1,0 +1,39 @@
+<div class="container p-3">
+  <ngb-accordion activeIds="static-0">
+    <ngb-panel *ngFor=" let organization of organizationArray; let index = index" id="static-{{index}}"
+      title="{{organization.nom}} - {{organization.nbPersonIn}}/{{organization.nbPersonCapacity}}">
+      
+      <ng-template ngbPanelContent>
+        <div>Info sur {{organization.nom}}</div>
+        <ngb-progressbar type="info" [value]="organization.nbPersonIn/organization.nbPersonCapacity*100" class="m-3">Copying file <b>{{organization.nbPersonIn}} sur {{organization.nbPersonCapacity}}</b>...</ngb-progressbar>
+        <div *ngFor="let building of organization.buildings; let index2 = index"> 
+            <div class="row">
+              <div class="col-2 p-2">{{building.nom}} </div>
+              <div class="col align-self-center progress p-0"  style="width: 100%">
+              <div class="progress-bar bg-info m-0" role="progressbar" style="width: 50%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">{{building.nbPersonIn}} sur {{building.nbPersonCapacity}}</div>
+            </div>
+          </div>
+        </div>
+        <ngb-accordion activeIds="static2-0">
+          <ngb-panel *ngFor=" let building of organization.buildings; let index2 = index" id="static2-{{index2}}"
+            title="{{building.nom}}">
+            <ng-template ngbPanelContent>
+              <div>nombre de personne dans le building : {{building.nbPersonIn}}</div>
+              <div>Nombre de personnes max : {{building.nbPersonCapacity}}</div>
+              <ngb-accordion activeIds="static3-0">
+                <ngb-panel *ngFor=" let piece of building.pieces; let index3 = index" id="static3-{{index3}}"
+                  title="{{piece.nom}}">
+                  <ng-template ngbPanelContent>
+                    <div>nombre de personne dans la pièce : {{piece.nbPersonIn}}</div>
+                    <div>Nombre de personnes max : {{piece.nbPersonCapacity}}</div>
+                  </ng-template>
+                </ngb-panel>
+              </ngb-accordion>
+            </ng-template>
+          </ngb-panel>
+        </ngb-accordion>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>
+
